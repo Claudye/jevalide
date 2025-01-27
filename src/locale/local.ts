@@ -18,7 +18,7 @@ export class Local {
   }
 
   getMessages(local?: string) {
-    local = local ?? this.DEFAULT_LANG;
+    local = local ?? this._useLang ?? this.LANG;
     let messages = this._message[local];
     if (!messages) {
       messages = this._message[this.DEFAULT_LANG];

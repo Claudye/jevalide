@@ -167,12 +167,11 @@ describe('Jevalide', () => {
 
     it('should handle translations', () => {
       validator.translate('fr', {
-        required: 'Requis',
         email: 'Email invalide',
       });
 
       validator.setLocale('fr');
-      expect(validator.getMessage('required')).toBe('Requis');
+      expect(validator.getMessage('required')).toBe('Ce champ est obligatoire');
       expect(validator.getMessage('email')).toBe('Email invalide');
     });
   });

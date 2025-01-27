@@ -174,7 +174,7 @@ export class Validation {
    * @param r
    * @returns
    */
-  private _makeRuleExcutedInstance(r: string | Rule, originalRuleName: string) {
+  private _makeRuleExcutedInstance(r: string, originalRuleName: string) {
     const re = this._ruleExecuted.find((rx) => {
       return rx.isNamed(r);
     });

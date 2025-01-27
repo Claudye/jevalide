@@ -130,3 +130,24 @@ describe('Validation with nullable number', () => {
     ]);
   });
 });
+
+describe('Validation messages', () => {
+  let validation: Validation;
+
+  beforeEach(() => {
+    const inputRule = new InputRule(bag, ['required'], {
+      email: 'Invalid email format',
+    });
+    validation = new Validation(bag.trLocal);
+    validation.setRules(inputRule);
+  });
+  bag.trLocal.local('fr');
+  test('Validation translate messages', () => {
+    validation.failsOnFirst = false;
+    validation.value = '';
+    const received = validation.getErrors();
+    expect(received).toEqual({
+      required: 'Ce champ est obligatoire',
+    });
+  });
+});
