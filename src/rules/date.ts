@@ -1,13 +1,14 @@
 import dayjs from 'dayjs';
 import { RuleCallBack } from '../contracts';
 import { now, spliteParam, throwEmptyArgsException } from '../utils';
+
 /**
  * This is a callback function that checks if the input is a valid date.
  *
  * @param input The input string to be validated.
- * @example
- * ```html
- * <input type="date-local" data-tr-rules="date" />
+ * @description
+ * ```md
+ *  required|date
  * ```
  */
 export const isDate: RuleCallBack = (input) => {
@@ -33,13 +34,14 @@ export const isDate: RuleCallBack = (input) => {
 };
 
 /**
- * Checks whether a given date is before another date.
+ * This is a callback function that checks if a given date is before another date.
  *
- * @param input - The date to check, as a string in ISO 8601 format or a `Date` object.
- * @param date - The date to compare against, as a string in ISO 8601 format or the string "now" to use the current date and time. It can take the `now` value
- *   @example
- * ```html
- * <input type="date-local" data-tr-rules="before:2020-11-11" />
+ * @param input The date to check, as a string in ISO 8601 format or a Date object.
+ * @param date The date to compare against, as a string in ISO 8601 format or the string "now" to use the current date and time.
+ * @description
+ * ```md
+ *  required|before:2020-11-11
+ *  required|before:now
  * ```
  */
 export const dateBefore: RuleCallBack = (input, date) => {
@@ -63,18 +65,14 @@ export const dateBefore: RuleCallBack = (input, date) => {
 };
 
 /**
- * Checks whether a given date is after another date.
+ * This is a callback function that checks if a given date is after another date.
  *
- * @param input - The date to check, as a string in ISO 8601 format or a `Date` object.
- * @param date - The date to compare against, as a string in ISO 8601 format or the string "now" to use the current date and time. date can be `now
- * @example
- * ```js
- *  {
- *    rules:['after:now']
- * }
- * ```
- * ```html
- * <input data-tr-rules="after:now" />
+ * @param input The date to check, as a string in ISO 8601 format or a Date object.
+ * @param date The date to compare against, as a string in ISO 8601 format or the string "now" to use the current date and time.
+ * @description
+ * ```md
+ *  required|after:2020-11-11
+ *  required|after:now
  * ```
  */
 export const dateAfter: RuleCallBack = (input, date) => {
@@ -99,14 +97,16 @@ export const dateAfter: RuleCallBack = (input, date) => {
 };
 
 /**
- * Checks whether a given date is between two other dates.
+ * This is a callback function that checks if a given date is between two other dates.
  *
- * @param input - The date to check, as a string in ISO 8601 format or a `Date` object.
- * @param date - The range of dates to compare against, as a string in the format "startDate,endDate", where startDate and endDate are strings in ISO 8601 format or the string "now" to use the current date and time.
- *  ```html
- * <input type="date-local" data-tr-rules="dateBetween:2020-11-11,now" />
+ * @param input The date to check, as a string in ISO 8601 format or a Date object.
+ * @param date The range of dates to compare against, as a string in the format "startDate,endDate", where startDate and endDate are strings in ISO 8601 format or the string "now" to use the current date and time.
+ * @description
+ * ```md
+ *  required|dateBetween:2020-11-11,now
+ *  required|dateBetween:2020-11-11,2021-11-11
  * ```
- * @throws An exception with the message "Missing required argument: dateBetween" if the `date` parameter is falsy.
+ * @throws An exception with the message "Missing required argument: dateBetween" if the date parameter is falsy.
  */
 export const dateBetween: RuleCallBack = (input, date) => {
   if (!date) {
@@ -121,19 +121,13 @@ export const dateBetween: RuleCallBack = (input, date) => {
 };
 
 /**
- * Checks whether a given string represents a valid time in 24-hour format.
+ * This is a callback function that checks if a given string represents a valid time in 24-hour format.
  *
- * @param input - The string to check.
- * @example
- * ```js
- * {
- *    rules:['time']
- * }
+ * @param input The string to check in format HH:mm:ss.
+ * @description
+ * ```md
+ *  required|time
  * ```
- * ```html
- * <input data-tr-rules="time" />
- * ```
- *
  */
 export const isTime: RuleCallBack = (input) => {
   if (typeof input !== 'string') {

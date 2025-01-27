@@ -1,16 +1,15 @@
 import { RuleCallBack } from '../contracts';
 import { CountryPhoneValidator } from './phone/country-phone-validator';
+
 /**
- * This callback validates the format of the phone number.
- * Note that this may contain errors given the diversity of existing telephone numbers.
+ * This is a callback function that validates phone number formats for different countries.
  *
- * @param input
- * @param params
- * @example
- * ```html
- *  <input data-tr-rules="phone:US,FR,BJ" />
- * <!--valide phone globally--/>
- *   <input data-tr-rules="phone" />
+ * @param input The phone number to validate
+ * @param params Optional country codes to validate against
+ * @description
+ * ```md
+ *  required|phone:US,FR,BJ
+ *  required|phone
  * ```
  */
 export const phone: RuleCallBack = (input, params) => {

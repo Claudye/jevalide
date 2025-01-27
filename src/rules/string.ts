@@ -2,15 +2,14 @@ import { isNumber } from '.';
 import { RuleCallBack } from '../contracts';
 import { spliteParam, throwEmptyArgsException } from '../utils';
 import { ArgumentParser } from '../validation/utils/argument-parser';
+
 /**
- * Validates an email address.
+ * This is a callback function that validates email addresses.
  *
- * @param input The email address to validate.
- * @param options Optional parameters
- *  @param param - The parameter specifying the expected type ("string" or "number").
- * @example
- *  ```html
- *  <input data-tr-rules="email"/>
+ * @param input The email address to validate
+ * @description
+ * ```md
+ *  required|email
  * ```
  */
 export const email: RuleCallBack = (input) => {
@@ -29,13 +28,13 @@ export const email: RuleCallBack = (input) => {
 };
 
 /**
- * Validates that the input is at least a certain length.
+ * This is a callback function that checks if a string's length meets a minimum requirement.
  *
- * @param input The input to validate.
- * @param length The minimum length.
- * @example
- *  ```html
- *  <input data-tr-rules="minlength:8"/>
+ * @param input The input to validate
+ * @param length The minimum length required
+ * @description
+ * ```md
+ *  required|minlength:8
  * ```
  */
 export const minlength: RuleCallBack = (input, length) => {
@@ -46,13 +45,13 @@ export const minlength: RuleCallBack = (input, length) => {
 };
 
 /**
- * Validates that the input is no more than a certain length.
+ * This is a callback function that checks if a string's length does not exceed a maximum.
  *
- * @param input The input to validate.
- * @param length The maximum length.
- * @example
- *  ```html
- *  <input data-tr-rules="maxlength:8"/>
+ * @param input The input to validate
+ * @param length The maximum length allowed
+ * @description
+ * ```md
+ *  required|maxlength:8
  * ```
  */
 export const maxlength: RuleCallBack = (input, length) => {
@@ -61,10 +60,15 @@ export const maxlength: RuleCallBack = (input, length) => {
     value: input,
   };
 };
+
 /**
- * Checks if the input is a string.
+ * This is a callback function that checks if a value is a string.
  *
- * @param val The input to check.
+ * @param val The input to check
+ * @description
+ * ```md
+ *  required|string
+ * ```
  */
 export const is_string: RuleCallBack = (val) => {
   return {
@@ -74,12 +78,12 @@ export const is_string: RuleCallBack = (val) => {
 };
 
 /**
- * Validates a URL.
+ * This is a callback function that validates URLs.
  *
- * @param input The URL to validate.
- *  @example
- *  ```html
- *  <input data-tr-rules="url"/>
+ * @param input The URL to validate
+ * @description
+ * ```md
+ *  required|url
  * ```
  */
 export const url: RuleCallBack = (input) => {
@@ -97,12 +101,12 @@ export const url: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input starts with an uppercase letter.
+ * This is a callback function that checks if a string starts with an uppercase letter.
  *
- * @param input The input to check.
- *  @example
- *  ```html
- *  <input data-tr-rules="startWithUpper"/>
+ * @param input The input to check
+ * @description
+ * ```md
+ *  required|startWithUpper
  * ```
  */
 export const startWithUpper: RuleCallBack = (input) => {
@@ -120,15 +124,14 @@ export const startWithUpper: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input starts with a lowercase letter.
+ * This is a callback function that checks if a string starts with a lowercase letter.
  *
- * @param input The input to check.
- *  @example
- *  ```html
- *  <input data-tr-rules="startWithLower"/>
+ * @param input The input to check
+ * @description
+ * ```md
+ *  required|startWithLower
  * ```
  */
-
 export const startWithLower: RuleCallBack = (input) => {
   if (
     typeof input !== 'string' ||
@@ -147,15 +150,14 @@ export const startWithLower: RuleCallBack = (input) => {
 };
 
 /**
- * Checks whether a given string starts with any of the given prefixes.
+ * This is a callback function that checks if a string starts with specified prefixes.
  *
- * @param input - The string to check.
- * @param prefix - The prefixes to check for, as a comma-separated list of strings.
- *  @example
- *  ```html
- *  <input data-tr-rules="startWith"/>
+ * @param input The string to check
+ * @param prefix The prefixes to check for, comma-separated
+ * @description
+ * ```md
+ *  required|startWith:pre1,pre2
  * ```
- * @throws An exception with the message "Missing required argument: startWith" if the `prefix` parameter is falsy.
  */
 export const startWith: RuleCallBack = (input, prefix) => {
   if (!prefix) {
@@ -175,15 +177,14 @@ export const startWith: RuleCallBack = (input, prefix) => {
 };
 
 /**
- * Checks whether a given string ends with one of the specified suffixes.
+ * This is a callback function that checks if a string ends with specified suffixes.
  *
- * @param input - The string to check.
- * @param suffix - A comma-separated list of suffixes to check against.
- *  @example
- *  ```html
- *  <input data-tr-rules="endWith"/>
+ * @param input The string to check
+ * @param suffix The suffixes to check for, comma-separated
+ * @description
+ * ```md
+ *  required|endWith:suf1,suf2
  * ```
- * @throws An exception with the message "Missing required argument: endWith" if the `suffix` parameter is falsy.
  */
 export const endWith: RuleCallBack = (input, suffix) => {
   if (!suffix) {
@@ -203,15 +204,14 @@ export const endWith: RuleCallBack = (input, suffix) => {
 };
 
 /**
- * Checks if the input contains all the specified substrings.
+ * This is a callback function that checks if a string contains specified substrings.
  *
- * @param input - The input to check.
- * @param substrings - A comma-separated  substrings to check for.
- *  @example
- *  ```html
- *  <input data-tr-rules="contains:thanks,yes"/>
+ * @param input The string to check
+ * @param substrings The substrings to look for, comma-separated
+ * @description
+ * ```md
+ *  required|contains:str1,str2
  * ```
- * @throws An exception with the message "Missing required argument: contains" if the `substrings` parameter is falsy.
  */
 export const contains: RuleCallBack = (input, substring) => {
   if (!substring) {
@@ -234,16 +234,15 @@ export const contains: RuleCallBack = (input, substring) => {
 };
 
 /**
- * Checks if the input has the specified length. Has alias (len)
+ * This is a callback function that checks if a string has a specific length.
  *
- * @param input - The input to check.
- * @param size - The desired length of the input.
- * @example
- *  ```html
- *  <input data-tr-rules="length:9"/>
- *  <input data-tr-rules="len:9"/>
+ * @param input The string to check
+ * @param size The required length
+ * @description
+ * ```md
+ *  required|length:9
+ *  required|len:9
  * ```
- * @throws An exception with the message "The length rule argument must be an integer" if the `size` parameter is not an integer.
  */
 export const length: RuleCallBack = (input, size) => {
   let inputs: string[] = [];
@@ -265,15 +264,14 @@ export const length: RuleCallBack = (input, size) => {
     value: input,
   };
 };
+
 /**
- * Checks if the input is a valid password.
+ * This is a callback function that validates password complexity.
  *
- * A valid password is at least 8 characters long and contains at least one uppercase letter, one lowercase letter, one number, and one special character.
- *
- * @param input - The input to check.
- * @example
- *  ```html
- *  <input data-tr-rules="password"/>
+ * @param input The password to validate
+ * @description
+ * ```md
+ *  required|password
  * ```
  */
 export const passwordRule: RuleCallBack = (input) => {
@@ -309,12 +307,12 @@ export const passwordRule: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input starts with a letter.
+ * This is a callback function that checks if a string starts with a letter.
  *
- * @param input - The input to check.
- * @example
- *  ```html
- *  <input data-tr-rules="startWithString"/>
+ * @param input The string to check
+ * @description
+ * ```md
+ *  required|startWithString
  * ```
  */
 export const startWithString: RuleCallBack = (input) => {
@@ -336,12 +334,12 @@ export const startWithString: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input ends with a letter.
+ * This is a callback function that checks if a string ends with a letter.
  *
- * @param input - The input to check.
- * @example
- *  ```html
- *  <input data-tr-rules="endWithString"/>
+ * @param input The string to check
+ * @description
+ * ```md
+ *  required|endWithString
  * ```
  */
 export const endWithString: RuleCallBack = (input) => {
@@ -359,12 +357,12 @@ export const endWithString: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input contains a letter.
+ * This is a callback function that checks if a string contains any letters.
  *
- * @param input - The input to check.
- * @example
- *  ```html
- *  <input data-tr-rules="containsLetter"/>
+ * @param input The string to check
+ * @description
+ * ```md
+ *  required|containsLetter
  * ```
  */
 export const containsLetter: RuleCallBack = (input) => {
@@ -382,13 +380,13 @@ export const containsLetter: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input does not contain any of the specified characters.
+ * This is a callback function that checks if a string excludes certain characters.
  *
- * @param input - The input to check.
- * @param excludedChars - The characters to exclude, separated by comma.
- *  @example
- *  ```html
- *  <input data-tr-rules="excludes:-,@,&esp;"/>
+ * @param input The string to check
+ * @param excludedChars The characters to exclude, comma-separated
+ * @description
+ * ```md
+ *  required|excludes:-,@,&esp;
  * ```
  */
 export const excludes: RuleCallBack = (input, excludedChars) => {
@@ -415,13 +413,12 @@ export const excludes: RuleCallBack = (input, excludedChars) => {
 };
 
 /**
- * Checks if the input is all uppercase.
+ * This is a callback function that checks if a string is all uppercase.
  *
- * @param input - The input to check.
- * @param param - The locale to use.
- *   @example
- *  ```html
- *  <input data-tr-rules="upper"/>
+ * @param input The string to check
+ * @description
+ * ```md
+ *  required|upper
  * ```
  */
 export const upper: RuleCallBack = (input) => {
@@ -438,13 +435,12 @@ export const upper: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input is all lowercase.
+ * This is a callback function that checks if a string is all lowercase.
  *
- * @param input - The input to check.
- * @param param - The locale to use.
- *   @example
- *  ```html
- *  <input data-tr-rules="lower"/>
+ * @param input The string to check
+ * @description
+ * ```md
+ *  required|lower
  * ```
  */
 export const lower: RuleCallBack = (input) => {
@@ -461,13 +457,13 @@ export const lower: RuleCallBack = (input) => {
 };
 
 /**
- * Checks whether the length of a given string is between the specified minimum and maximum values.
+ * This is a callback function that checks if a string's length is between given values.
  *
- * @param input - The string to check.
- * @param min_max - The string containing the minimum and maximum values, separated by a delimiter.
- * @example
- * ```html
- * <input data-tr-rules="stringBetween:2,5" />
+ * @param input The string to check
+ * @param min_max The minimum and maximum lengths, comma-separated
+ * @description
+ * ```md
+ *  required|stringBetween:2,5
  * ```
  */
 export const stringBetween: RuleCallBack = (input, min_max) => {

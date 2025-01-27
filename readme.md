@@ -20,7 +20,9 @@ npm install jevalide
 Here's how simple it is to use Jevalide:
 
 ```javascript
-import { Jevalide } from 'jevalide';
+// Import Jevalide
+import { Jevalide } from 'jevalide'; // For ES modules
+// const { Jevalide } = require('jevalide'); // For CommonJS (Node.js)
 
 // Initialize the validator
 const validator = Jevalide.init({
@@ -72,7 +74,43 @@ validator.translate('fr', {
 validator.setLocale('fr');
 ```
 
-## Browser Usage
+## Usage in Different Environments
+
+### Node.js
+
+For CommonJS environments:
+```javascript
+const { Jevalide } = require('jevalide');
+```
+
+### Browser
+
+For browser environments, simply include Jevalide in your HTML:
+
+```html 
+<script>
+  const validator = Jevalide.init();
+  
+  // Validate your form
+  document.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const form = validator.form({
+      email: ['required', 'email'],
+      password: ['required', 'minlength:8']
+    }, {
+      email: document.querySelector('input[name="email"]').value,
+      password: document.querySelector('input[name="password"]').value
+    });
+    
+    if (form.passes()) {
+      // Submit the form
+    }
+  });
+</script>
+```
+
+
 
 Simply include Jevalide in your HTML:
 

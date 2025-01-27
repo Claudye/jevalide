@@ -2,14 +2,15 @@ import { maxlength, minlength } from './string';
 import { isFile, maxFileSize, minFileSize } from './file';
 import { spliteParam } from '../utils';
 import { RuleCallBack } from '../contracts';
+
 /**
- * When the value is a number, it checks whether the input value is greater than or equal to min
- * When the value is a character string, it checks whether the number of characters is greater than or equal to min
- * @param input - The input to check.
- * @param min - The minimum length.
- * @example
- *  ```html
- *  <input tr-rules="min:2"/>
+ * This is a callback function that checks input values or character lengths against a minimum.
+ *
+ * @param input The input to check
+ * @param min The minimum length
+ * @description
+ * ```md
+ *  required|min:2
  * ```
  */
 export const minRule: RuleCallBack = (input, min, type) => {
@@ -39,15 +40,15 @@ export const minRule: RuleCallBack = (input, min, type) => {
     };
   }
 };
+
 /**
- * When the value is a number, it checks whether the input value is less than or equal to max
- * When the value is a character string, it checks whether the number of characters is less than or equal to max
+ * This is a callback function that checks input values or character lengths against a maximum.
  *
- * @param input - The input to check.
- * @param max - The maximum length.
- *  @example
- *  ```html
- *  <input tr-rules="max:20"/>
+ * @param input The input to check
+ * @param max The maximum length
+ * @description
+ * ```md
+ *  required|max:20
  * ```
  */
 export const maxRule: RuleCallBack = (input, max, type) => {
@@ -80,12 +81,13 @@ export const maxRule: RuleCallBack = (input, max, type) => {
 };
 
 /**
- * Checks if the input is an integer. It has alias (int)
+ * This is a callback function that checks if the input is an integer.
  *
- * @param input - The input to check.
- * ```html
- *  <input tr-rules="integer"/> or
- *  <input tr-rules="int"/>
+ * @param input The input to check
+ * @description
+ * ```md
+ *  required|integer
+ *  required|int
  * ```
  */
 export const integer: RuleCallBack = (input) => {
@@ -105,11 +107,12 @@ export const integer: RuleCallBack = (input) => {
 };
 
 /**
- * Checks if the input is a number.
+ * This is a callback function that checks if the input is a number.
  *
- * @param input - The input to check.
- * ```html
- *  <input tr-rules="number"/>
+ * @param input The input to check
+ * @description
+ * ```md
+ *  required|number
  * ```
  */
 export const isNumber: RuleCallBack = (input) => {
@@ -146,11 +149,13 @@ export const isNumber: RuleCallBack = (input) => {
 };
 
 /**
- * Checks whether a number is a multiple or divisible by another number. Has alias (mod)
- * @param input - The input to check.
- * ```html
- *  <input tr-rules="modulo:2"/>
- * <input tr-rules="mod:2"/>
+ * This is a callback function that checks if a number is divisible by another number.
+ *
+ * @param input The input to check
+ * @description
+ * ```md
+ *  required|modulo:2
+ *  required|mod:2
  * ```
  */
 export const modulo: RuleCallBack = (input, mod) => {
@@ -172,13 +177,13 @@ export const modulo: RuleCallBack = (input, mod) => {
 };
 
 /**
- * Checks whether the input is less than the specified value.
+ * This is a callback function that checks if the input is less than a threshold.
  *
- * @param input - The input to check.
- * @param threshold - The threshold value.
- * @example
- * ```html
- * <input tr-rules="lessThan:10"/>
+ * @param input The input to check
+ * @param threshold The threshold value
+ * @description
+ * ```md
+ *  required|lessThan:10
  * ```
  */
 export const lessthan: RuleCallBack = (input, threshold) => {
@@ -200,13 +205,13 @@ export const lessthan: RuleCallBack = (input, threshold) => {
 };
 
 /**
- * Checks whether the input is greater than the specified value.
+ * This is a callback function that checks if the input is greater than a threshold.
  *
- * @param input - The input to check.
- * @param threshold - The threshold value.
- * @example
- * ```html
- * <input tr-rules="greaterThan:5"/>
+ * @param input The input to check
+ * @param threshold The threshold value
+ * @description
+ * ```md
+ *  required|greaterThan:5
  * ```
  */
 export const greaterthan: RuleCallBack = (input, threshold) => {
@@ -228,13 +233,13 @@ export const greaterthan: RuleCallBack = (input, threshold) => {
 };
 
 /**
- * Checks if the input number is between the specified minimum and maximum values.
+ * This is a callback function that checks if the input is between two values.
  *
- * @param input - The input to check.
- * @param params - String separated  by comma (,)
- * @example
- * ```html
- * <input data-tr-rules="numberBetween:1,10"/>
+ * @param input The input to check
+ * @param params String containing min and max values separated by comma
+ * @description
+ * ```md
+ *  required|numberBetween:1,10
  * ```
  */
 export const numberBetween: RuleCallBack = (input, params) => {

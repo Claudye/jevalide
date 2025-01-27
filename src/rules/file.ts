@@ -8,12 +8,12 @@ import {
 } from '../utils';
 
 /**
- * Checks whether a given value is a `File` or `Blob` object.
+ * This is a callback function that checks if a given value is a File or Blob object.
  *
- * @param value - The value to check.
- * @example
- *  ```html
- * <input data-tr-rules="file" />
+ * @param value The value to check.
+ * @description
+ * ```md
+ *  required|file
  * ```
  */
 export const isFile: RuleCallBack = (value) => {
@@ -43,15 +43,15 @@ export const isFile: RuleCallBack = (value) => {
 };
 
 /**
- * Checks whether the size of a given `File` or `Blob` object is less than or equal to a given maximum size.
+ * This is a callback function that checks if a file's size is less than or equal to a given maximum size.
  *
- * @param input - The `File` or `Blob` object to check.
- * @param maxSize - The maximum size in bytes, specified as a string with an optional unit of measurement (B, KB, MB, or GB).
- * @example
- *  ```html
- * <input data-tr-rules="maxFileSize:1MB" />
+ * @param input The File or Blob object to check.
+ * @param maxSize The maximum size in bytes, with an optional unit (B, KB, MB, or GB).
+ * @description
+ * ```md
+ *  required|maxFileSize:1MB
  * ```
- * @throws If the `maxSize` parameter is not in a valid format, an error is thrown.
+ * @throws If the maxSize parameter is not in a valid format
  */
 export const maxFileSize: RuleCallBack = (input, maxSize) => {
   const files = fileToArray(input);
@@ -84,17 +84,17 @@ export const maxFileSize: RuleCallBack = (input, maxSize) => {
     value: files,
   };
 };
+
 /**
- * A validation rule that checks if the size of a file is greater than or equal to the specified minimum size.
+ * This is a callback function that checks if a file's size is greater than or equal to a given minimum size.
  *
- * @param input The input value to validate. Should be a File or Blob object.
- * @param minSize The minimum size of the file. Should be a string in the format '<number><unit>', where 'unit' can be one of 'B', 'KB', 'MB', 'GB'. For example, '1KB' represents 1 kilobyte, '2MB' represents 2 megabytes, etc.
- * @example
- *  ```html
- * <input data-tr-rules="minFileSize:1MB" />
+ * @param input The File or Blob object to check.
+ * @param minSize The minimum size in bytes, with an optional unit (B, KB, MB, or GB).
+ * @description
+ * ```md
+ *  required|minFileSize:1MB
  * ```
- *
- * @throws An error if the minSize parameter is not a valid string in the format '<number><unit>'.
+ * @throws If the minSize parameter is not in a valid format
  */
 export const minFileSize: RuleCallBack = (input, minSize) => {
   const files = fileToArray(input);
@@ -133,13 +133,13 @@ export const minFileSize: RuleCallBack = (input, minSize) => {
 };
 
 /**
- * Checks whether the size of a given `File` or `Blob` object is between the specified minimum and maximum size.
+ * This is a callback function that checks if a file's size is between given minimum and maximum sizes.
  *
- * @param input - The `File` or `Blob` object to check.
- * @param min_max - The string containing the minimum and maximum size values, separated by a delimiter.
- * @example
- * ```html
- * <input data-tr-rules="fileBetween:1MB,5MB" />
+ * @param input The File or Blob object to check.
+ * @param min_max A string containing minimum and maximum sizes, separated by a delimiter.
+ * @description
+ * ```md
+ *  required|fileBetween:1MB,5MB
  * ```
  */
 export const fileBetween: RuleCallBack = (input, min_max) => {
@@ -164,14 +164,13 @@ export const fileBetween: RuleCallBack = (input, min_max) => {
 };
 
 /**
- * Checks whether the MIME type of a given `File` or `Blob` object matches the specified MIME type.
+ * This is a callback function that checks if a file's MIME type matches specified types.
  *
- * @param input - The `File` or `Blob`, `FileList` File[] object to check.
- * @param param - The MIME type(s) to match. It can be a wildcard (*), a specific MIME type (.pdf), or a MIME type group (images/*).
- *
- * @example
- * ```html
- * <input type="file" data-tr-rules="mimes:.pdf"
+ * @param input The File, Blob, FileList or File[] object to check.
+ * @param param The MIME types to match (wildcard *, specific type .pdf, or type group images/*).
+ * @description
+ * ```md
+ *  required|mimes:.pdf
  * ```
  */
 export const isMimes: RuleCallBack = (input, param) => {
