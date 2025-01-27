@@ -9,7 +9,7 @@ export default defineConfig({
       entry: './src/index.ts',
       fileName: 'index',
       name: 'jevalide',
-      formats: ['es', 'umd'],
+      formats: ['es', 'umd', 'cjs'],
     },
   },
   resolve: {
