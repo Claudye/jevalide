@@ -6,12 +6,9 @@ export type InputCallback<P> = (param: P) => void;
  * Configuration interface
  */
 export interface Config {
-  invalidClass?: string;
-  validClass?: string;
   local?: {
     lang: string;
   };
-  realTime?: boolean;
 }
 
 export type RuleParam = string | number | undefined | boolean | null;

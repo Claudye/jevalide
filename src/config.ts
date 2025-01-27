@@ -6,5 +6,4 @@ export const Config: JevalideConfig = {
   local: {
     lang: 'en',
   },
-  realTime: true,
 };
