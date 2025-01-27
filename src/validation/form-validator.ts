@@ -55,6 +55,8 @@ export class FormValidator<T = unknown> {
 
   mergeData(data: Partial<T>) {
     this._data = { ...this._data, ...data };
+
+    return this;
   }
 
   getData(): T {

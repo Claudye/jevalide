@@ -185,8 +185,9 @@ export class Jevalide {
    * @param locale - Target locale
    * @param messages - Messages to translate
    */
-  translate(locale: string, messages: RulesMessages): void {
+  translate(locale: string, messages: RulesMessages) {
     this.trLocal.translate(locale, messages);
+    return this;
   }
 
   /**
@@ -195,8 +196,9 @@ export class Jevalide {
    * @param ruleName - Name of the rule
    * @param message - New message
    */
-  rewrite(locale: string, ruleName: string, message: string): void {
+  rewrite(locale: string, ruleName: string, message: string) {
     this.trLocal.rewrite(locale, ruleName, message);
+    return this;
   }
 
   /**
@@ -205,8 +207,9 @@ export class Jevalide {
    * @param rules - Array of rule names
    * @param messages - Array of messages
    */
-  rewriteMany(locale: string, rules: string[], messages: string[]): void {
+  rewriteMany(locale: string, rules: string[], messages: string[]) {
     this.trLocal.rewriteMany(locale, rules, messages);
+    return this;
   }
 
   get messages() {
@@ -226,7 +229,7 @@ export class Jevalide {
    * @param messages - Object containing rule names as keys and messages as values
    * @param locale - Optional locale for the messages
    */
-  setMessages(messages: Record<string, string>, locale?: string): void {
+  setMessages(messages: Record<string, string>, locale?: string) {
     if (!messages || typeof messages !== 'object') {
       throw new Error(
         'Messages must be a valid object with rule names as keys and messages as values',
@@ -236,12 +239,14 @@ export class Jevalide {
     Object.entries(messages).forEach(([ruleName, message]) => {
       this.Message.add(ruleName, message, locale);
     });
+
+    return this;
   }
   /**
    * Sets multiple validation rules at once
    * @param rules - Object containing rule names as keys and rule callbacks as values
    */
-  setRules(rules: Record<string, RuleCallBack>): void {
+  setRules(rules: Record<string, RuleCallBack>) {
     if (!rules || typeof rules !== 'object') {
       throw new Error(
         'Rules must be a valid object with rule names as keys and callbacks as values',
@@ -254,5 +259,7 @@ export class Jevalide {
       }
       this._bag.addRule(ruleName, callback);
     });
+
+    return this;
   }
 }
