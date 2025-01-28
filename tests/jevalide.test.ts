@@ -194,3 +194,93 @@ describe('Jevalide', () => {
     });
   });
 });
+
+describe('Static Validate Method', () => {
+  beforeEach(() => {
+    (Jevalide as any).instance = undefined;
+    Jevalide.init();
+  });
+
+  it('should create and return a form validator instance', () => {
+    const data = {
+      email: 'test@example.com',
+      name: 'John Doe',
+    };
+
+    const inputs = {
+      email: {
+        rules: ['required', 'email'],
+      },
+      name: {
+        rules: ['required'],
+      },
+    };
+
+    const validator = Jevalide.validate(data, inputs);
+    expect(validator).toBeDefined();
+    expect(validator.valid).toBeDefined();
+    expect(validator.isValid()).toBe(true);
+  });
+
+  it('should validate with config options', () => {
+    const data = {
+      email: 'test@example.com',
+    };
+
+    const inputs = {
+      email: {
+        rules: ['required', 'email'],
+      },
+    };
+
+    const config = {
+      name: 'testForm',
+      bail: true,
+    };
+
+    const validator = Jevalide.validate(data, inputs, config);
+    expect(validator).toBeDefined();
+    expect(validator.isValid()).toBe(true);
+  });
+
+  it('should fail validation with invalid data', () => {
+    const data = {
+      email: 'invalid-email',
+    };
+
+    const inputs = {
+      email: {
+        rules: ['required', 'email'],
+      },
+    };
+
+    const validator = Jevalide.validate(data, inputs);
+    expect(validator.isValid()).toBe(false);
+    expect(validator.has('email')).toBe(true);
+  });
+
+  it('should validate using custom rules', () => {
+    // Add a custom rule first
+    Jevalide.init({
+      rules: {
+        customRule: (value) => ({
+          passes: value === 'valid',
+          value,
+        }),
+      },
+    });
+
+    const data = {
+      field: 'valid',
+    };
+
+    const inputs = {
+      field: {
+        rules: ['customRule'],
+      },
+    };
+
+    const validator = Jevalide.validate(data, inputs);
+    expect(validator.isValid()).toBe(true);
+  });
+});

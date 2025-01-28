@@ -193,9 +193,6 @@ export class FormValidator<T = unknown> {
    * ```typescript
    * const formValidator = new FormValidator({});
    *
-   * // Use the form...
-   *
-   * // When the form is no longer needed, destroy the FormValidator instance
    * formValidator.destroy();
    * ```
    */

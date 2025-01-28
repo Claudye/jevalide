@@ -14,25 +14,66 @@ Using npm:
 ```bash
 npm install jevalide
 ```
- 
+
 ## Quick Start
 
-Here's how simple it is to use Jevalide:
+Jevalide simplifies validation with minimal setup. Here's how it works:
+
+### Simple Validation with `validate`
+
+The `Jevalide.validate` method is perfect for quickly validating data without additional configuration:
 
 ```javascript
 // Import Jevalide
-import { Jevalide } from 'jevalide'; // For ES modules
-// const { Jevalide } = require('jevalide'); // For CommonJS (Node.js)
+import { Jevalide } from 'jevalide';
 
-// Initialize the validator
+const data = {
+  email: 'test@example.com',
+  password: '12345'
+};
+
+const rules = {
+  email: ['required', 'email'],
+  password: ['required', 'minlength:8']
+};
+
+const validator = Jevalide.validate(data, rules);
+
+if (validator.isValid()) {
+  console.log('Validation passed!');
+} else {
+  console.log(validator.getErrors());
+  // Output: { password: 'Password must be at least 8 characters' }
+}
+```
+
+### Customize with `init`
+
+The `Jevalide.init` method allows you to set up global configurations, such as custom rules, messages, and locales:
+
+```javascript
+// Initialize with custom options
 const validator = Jevalide.init({
+  rules: {
+    customRule: (value) => ({
+      passes: /^[a-zA-Z]+$/.test(value),
+      value
+    })
+  },
   messages: {
     required: 'This field is required',
-    email: 'Please enter a valid email'
-  }
+    email: 'Please enter a valid email',
+    customRule: 'Only letters are allowed'
+  },
+  local: 'en'
 });
+```
 
-// Validate a complete form
+### Validate Forms
+
+Effortlessly validate entire forms:
+
+```javascript
 const form = validator.form({
   email: ['required', 'email'],
   password: ['required', 'minlength:8']
@@ -41,15 +82,19 @@ const form = validator.form({
   password: '12345'
 });
 
-// Simple validation check
 if (form.passes()) {
   console.log('All good!');
 } else {
   console.log(form.getErrors());
   // Output: { password: 'Password must be at least 8 characters' }
 }
+```
 
-// Need to validate a single input? No problem!
+### Input Validation
+
+Handle single input validation:
+
+```javascript
 const emailValidator = validator.input({
   name: 'email',
   rules: ['required', 'email']
@@ -58,14 +103,24 @@ const emailValidator = validator.input({
 emailValidator.setValue('invalid-email');
 console.log(emailValidator.getError());
 // Output: 'Please enter a valid email'
+```
 
-// Add your own custom rules
+### Custom Rules Made Easy
+
+Add your own validation logic:
+
+```javascript
 validator.rule('username', (value) => ({
   passes: /^[a-zA-Z0-9_]+$/.test(value),
   value
-}), 'Username can only contain letters, numbers and underscores');
+}), 'Username can only contain letters, numbers, and underscores');
+```
 
-// Supporting multiple languages? We've got you covered!
+### Support for Multiple Languages
+
+Customize messages for different locales:
+
+```javascript
 validator.translate('fr', {
   required: 'Ce champ est requis',
   email: 'Veuillez entrer une adresse email valide'
@@ -87,14 +142,18 @@ const { Jevalide } = require('jevalide');
 
 For browser environments, simply include Jevalide in your HTML:
 
-```html 
+```html
 <script>
-  const validator = Jevalide.init();
-  
-  // Validate your form
+  const validator = Jevalide.init({
+    messages: {
+      required: 'This field is required',
+      email: 'Please enter a valid email'
+    }
+  });
+
   document.querySelector('form').addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     const form = validator.form({
       email: ['required', 'email'],
       password: ['required', 'minlength:8']
@@ -102,39 +161,17 @@ For browser environments, simply include Jevalide in your HTML:
       email: document.querySelector('input[name="email"]').value,
       password: document.querySelector('input[name="password"]').value
     });
-    
+
     if (form.passes()) {
       // Submit the form
+    } else {
+      console.log(form.getErrors());
     }
   });
 </script>
 ```
 
+---
 
+With Jevalide, validation is no longer a hassle. Customize once, reuse everywhere, and keep your validation logic clean and maintainable.
 
-Simply include Jevalide in your HTML:
-
-```html 
-<script>
-  const validator = Jevalide.init();
-  
-  // Validate your form
-  document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const form = validator.form({
-      email: ['required', 'email'],
-      password: ['required', 'minlength:8']
-    }, {
-      email: document.querySelector('input[name="email"]').value,
-      password: document.querySelector('input[name="password"]').value
-    });
-    
-    if (form.passes()) {
-      // Submit the form
-    }
-  });
-</script>
-```
-
-That's it! No complex setup, no configuration headaches - just clean, simple validation that works everywhere.

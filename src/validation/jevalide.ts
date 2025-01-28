@@ -262,4 +262,9 @@ export class Jevalide {
 
     return this;
   }
+
+  static validate<T>(data: Partial<T>, inputs: MakeInput, config?: FormConfig) {
+    const instance = Jevalide.instance;
+    return instance.form(inputs, data, config);
+  }
 }
