@@ -38,7 +38,7 @@ export class FormValidator<T = unknown> {
 
   private _data = {} as T;
 
-  private widcardPattern: { name: string; input: InputParms }[] = [];
+  private wildcardPattern: { name: string; input: InputParms }[] = [];
   constructor(
     inputs: MakeInput,
     data: Partial<T>,
@@ -53,12 +53,12 @@ export class FormValidator<T = unknown> {
 
   setData(data: T) {
     this._data = data && typeof data === 'object' ? data : ({} as T);
-    this.handleWidcards();
+    this.handleWildcards();
   }
 
   mergeData(data: Partial<T>) {
     this._data = { ...this._data, ...data };
-    this.handleWidcards();
+    this.handleWildcards();
     return this;
   }
 
@@ -370,11 +370,11 @@ export class FormValidator<T = unknown> {
     }
 
     if (indexOrName?.toString().includes('*')) {
-      this.widcardPattern.push({
+      this.wildcardPattern.push({
         name: indexOrName.toString(),
         input: inputParam,
       });
-      this.handleWidcards();
+      this.handleWildcards();
     } else {
       this.addInput(new InputValidator(this._bag, inputParam, this.parameter));
     }
@@ -382,16 +382,16 @@ export class FormValidator<T = unknown> {
     return inputParam;
   }
 
-  private handleWidcards() {
-    for (const widcard of this.widcardPattern) {
-      const [name] = widcard.name.split('.*');
+  private handleWildcards() {
+    for (const wildcard of this.wildcardPattern) {
+      const [name] = wildcard.name.split('.*');
       const data = data_get(this._data as object, name);
       if (typeof data === 'object' && data) {
         const keys = Object.keys(data);
         for (const key of keys) {
-          widcard.input.name = `${name}.${key}`;
+          wildcard.input.name = `${name}.${key}`;
           this.addInput(
-            new InputValidator(this._bag, widcard.input, this.parameter),
+            new InputValidator(this._bag, wildcard.input, this.parameter),
           );
         }
       }
