@@ -176,4 +176,116 @@ describe('FormValidator', () => {
       });
     });
   });
+
+  describe('Wildcard Validation Tests', () => {
+    const { form } = Jevalide.init();
+
+    // Example data with nested objects
+    const data: any = {
+      users: {
+        name: 'Marie',
+        email: 'test@gmail.com',
+        note: {
+          en: '20',
+          fr: '0',
+        },
+      },
+    };
+
+    // Wildcard rules
+    const rules = {
+      users: 'object',
+      'users.*': 'required',
+      'users.note.*': 'required|integer',
+    };
+
+    let formValidator: FormValidator<typeof data>;
+
+    beforeEach(() => {
+      // Create a new validator for each test
+      formValidator = form(rules, data);
+    });
+
+    describe('Valid Data', () => {
+      it('should pass when all fields meet the wildcard rules', () => {
+        // "Marie" has at least 3 letters, "test@gmail.com" has more than 3,
+        // note.en = 20 (integer), note.fr = 0 (integer).
+        expect(formValidator.isValid()).toBe(true);
+      });
+    });
+
+    describe('Invalid Data Cases', () => {
+      it('should fail when any sub-field does not meet the rules (e.g., missing or too short)', () => {
+        // Merge a bad value into 'name', forcing it to fail the minlength:3 rule
+        formValidator.mergeData({
+          users: {
+            name: '', // should fail"
+            email: 'test@gmail.com',
+            note: {
+              en: '20',
+              fr: '0',
+            },
+          },
+        });
+        formValidator.valid;
+
+        expect(formValidator.isValid()).toBe(false);
+      });
+
+      it('should fail when a note sub-field is not an integer', () => {
+        // Merge an invalid type for note.en
+        formValidator.mergeData({
+          users: {
+            name: 'Marie',
+            email: 'test@gmail.com',
+            note: {
+              en: 'twenty', // not an integer
+              fr: '0',
+            },
+          },
+        });
+        expect(formValidator.isValid()).toBe(false);
+      });
+
+      it('should fail if a required note sub-field is missing', () => {
+        // Omit 'fr' sub-field
+        formValidator.mergeData({
+          users: {
+            name: 'Marie',
+            email: 'test@gmail.com',
+            note: {
+              en: '20',
+              // 'fr' missing
+            },
+          },
+        });
+        expect(formValidator.isValid()).toBe(false);
+      });
+    });
+
+    describe('Wildcard Rule Integration', () => {
+      it('should correctly report errors for failing wildcard paths', () => {
+        formValidator.mergeData({
+          users: {
+            // 'name' is missing entirely
+            email: 'bad',
+            note: {
+              en: 'x', // invalid integer
+              fr: 'x', // invalid integer
+            },
+          },
+        });
+
+        // Run validation
+        const valid = formValidator.isValid();
+        expect(valid).toBe(false);
+
+        // You can inspect individual errors if needed
+        // e.g. console.log(formValidator.errors);
+        // The "errors" property should contain info about which fields failed
+        // (users.name => required, users.email => minlength:3,
+        //  users.note.en => integer, users.note.fr => integer, etc.)
+      });
+    });
+  });
 });
