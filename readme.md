@@ -229,6 +229,5 @@ For browser environments, simply include Jevalide in your HTML:
 | `fileBetween:x,y`            | Checks that the file size is between `x` and `y`. <br>**Example**: `required\|fileBetween:1MB,5MB`                                                                                            |
 | `mimes:x,y`                  | Validates the file’s MIME type/extension. Supports wildcards (`*.jpg`), type groups (`image/*`), or specific extensions. <br>**Example**: `required\|mimes:*.pdf,image/*`                     |
 
-                                                                             |
 With Jevalide, validation is no longer a hassle. Customize once, reuse everywhere, and keep your validation logic clean and maintainable.
 
