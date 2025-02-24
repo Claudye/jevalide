@@ -20,6 +20,8 @@ export class Jevalide {
   private readonly _bag: Bag;
   private readonly Message: Message;
 
+  private static localLanguage: string = 'en';
+
   private constructor() {
     this.forms = new Map();
     this.inputs = new Map();
@@ -44,6 +46,8 @@ export class Jevalide {
     if (!Jevalide.instance) {
       Jevalide.instance = new Jevalide();
     }
+
+    Jevalide.instance.setLocale(Jevalide.localLanguage);
 
     if (params) {
       const instance = Jevalide.instance;
@@ -266,5 +270,9 @@ export class Jevalide {
   static validate<T>(data: Partial<T>, inputs: MakeInput, config?: FormConfig) {
     const instance = Jevalide.instance;
     return instance.form(inputs, data, config);
+  }
+
+  static setGlobalLocale(locale: string) {
+    Jevalide.localLanguage = locale;
   }
 }

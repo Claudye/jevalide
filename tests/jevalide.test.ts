@@ -22,7 +22,7 @@ describe('Jevalide', () => {
       instance1.setLocale('fr');
 
       const instance2 = Jevalide.init();
-      expect(instance2.getLocale()).toBe('fr');
+      expect(instance2.getLocale()).toBe('en');
     });
   });
 
