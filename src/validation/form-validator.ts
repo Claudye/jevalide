@@ -466,13 +466,10 @@ export class FormValidator<T = unknown> {
     return this;
   }
 
-  get errors(): Partial<Record<keyof T, string>> {
-    const errors: Partial<Record<keyof T, string>> = {};
+  get errors(): Record<string, string | null | undefined> {
+    const errors = {} as Record<string, string>;
     for (const input of this.failed()) {
-      errors[input.getName() as keyof T] = transformToArray(
-        input.errors,
-        (err) => err,
-      )[0];
+      errors[input.getName()] = transformToArray(input.errors, (err) => err)[0];
     }
     return errors;
   }
