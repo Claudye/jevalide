@@ -38,7 +38,7 @@ export class FormValidator<T = unknown> {
 
   private _data = {} as T;
 
-  private wildcardPattern: { name: string; input: InputParms }[] = [];
+  private readonly wildcardPattern: { name: string; input: InputParms }[] = [];
   constructor(
     inputs: MakeInput,
     data: Partial<T>,
